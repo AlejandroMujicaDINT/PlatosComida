@@ -49,16 +49,22 @@
                              Value="China">
                     <Setter Property="Source"
                             Value="images/china.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida China" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="Americana">
                     <Setter Property="Source"
                             Value="images/united_states.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida Americana" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="Mexicana">
                     <Setter Property="Source"
                             Value="images/mexico.png" />
+                    <Setter Property="ToolTip"
+                            Value="Comida Mexicana" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -74,6 +80,8 @@
                              Value="True">
                     <Setter Property="Visibility"
                             Value="Visible" />
+                    <Setter Property="ToolTip"
+                            Value="Leche" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Leche}"
                              Value="False">
@@ -90,6 +98,8 @@
                              Value="True">
                     <Setter Property="Visibility"
                             Value="Visible" />
+                    <Setter Property="ToolTip"
+                            Value="Sulfatos" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Sulfitos}"
                              Value="False">
@@ -106,6 +116,8 @@
                              Value="True">
                     <Setter Property="Visibility"
                             Value="Visible" />
+                    <Setter Property="ToolTip"
+                            Value="Gluten" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Gluten}"
                              Value="False">
@@ -122,6 +134,8 @@
                              Value="True">
                     <Setter Property="Visibility"
                             Value="Visible" />
+                    <Setter Property="ToolTip"
+                            Value="Soja" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Soja}"
                              Value="False">
@@ -134,14 +148,14 @@
     <Grid Margin="20" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ListBox Margin="10"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  Grid.Column="0"
                  x:Name="PlatosComidaListBox"
-                 ItemsSource="{Binding}" MouseLeftButtonUp="PlatosComidaListBox_MouseLeftButtonUp">
+                 ItemsSource="{Binding}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black"
@@ -157,7 +171,7 @@
                             </Viewbox>
                             <DockPanel LastChildFill="False"
                                        DockPanel.Dock="Bottom">
-                                <Image Style="{StaticResource tipoImage}"/>
+                                <Image Style="{StaticResource tipoImage}" />
                                 <StackPanel DockPanel.Dock="Right"
                                             Orientation="Horizontal"
                                             Margin="10">
@@ -174,7 +188,7 @@
                             <Image Source="{Binding Path=Imagen}"
                                    Width="200"
                                    Height="200"
-                                   Stretch="Fill"
+                                   Stretch="UniformToFill"
                                    Margin="20,5"></Image>
                         </DockPanel>
                     </Border>
@@ -186,7 +200,7 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        <StackPanel x:Name="DatosPlatoStackPanel" Margin="10" Grid.Column="1" Background="LightGray">
+        <StackPanel x:Name="DatosPlatoStackPanel" DataContext="{Binding ElementName=PlatosComidaListBox, Path=SelectedItem}" Margin="10" Grid.Column="1" Background="LightGray">
             <TextBlock Margin="10,5,10,0">Nombre del plato</TextBlock>
             <TextBox  Margin="10,0,10,5" Text="{Binding Path=Nombre, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Margin="10,5,10,0">Foto del plato</TextBlock>
@@ -194,8 +208,8 @@
                       Margin="10,0,10,5"
                      Text="{Binding Path=Imagen, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Margin="10,5,10,0">Tipo de comida</TextBlock>
-            <ComboBox x:Name="tipoComidaComboBox" Margin="10,0,10,5" ItemsSource="{Binding}"
-                      SelectedItem="{Binding ElementName=DatosPlatoStackPanel, Path=DataContext.Tipo, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <ComboBox x:Name="tipoComidaComboBox" Margin="10,0,10,5"
+                      SelectedItem="{Binding Path=Tipo, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
             <GroupBox BorderBrush="Black" Margin="10">
                 <GroupBox.Header>Alérgenos</GroupBox.Header>
                 <Grid>

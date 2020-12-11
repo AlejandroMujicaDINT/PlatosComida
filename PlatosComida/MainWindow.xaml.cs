@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 
 
 namespace PlatosComida
@@ -15,7 +14,7 @@ namespace PlatosComida
         List<Plato> listaPlatos;
         ObservableCollection<Plato> listaPlatosComida;
         List<string> listaComboBox;
-        string rutaImagenes = "C:\\Users\\alex_\\source\\repos\\PlatosComida\\PlatosComida\\images\\";
+        string rutaImagenes = "..\\images\\";
         public MainWindow()
         {
             InitializeComponent();
@@ -26,13 +25,8 @@ namespace PlatosComida
             listaPlatosComida = new ObservableCollection<Plato>(listaPlatos);
 
             PlatosComidaListBox.DataContext = listaPlatosComida;
-            tipoComidaComboBox.DataContext = listaComboBox;
+            tipoComidaComboBox.ItemsSource = listaComboBox;
 
-        }
-
-        private void PlatosComidaListBox_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            DatosPlatoStackPanel.DataContext = PlatosComidaListBox.SelectedItem;
         }
     }
 }
